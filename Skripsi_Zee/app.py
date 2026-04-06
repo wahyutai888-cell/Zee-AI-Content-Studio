@@ -7,14 +7,11 @@ from PIL import Image
 # --- 1. KONFIGURASI HALAMAN (Wajib Paling Atas) ---
 st.set_page_config(page_title="Zee AI Studio", layout="wide", page_icon="✨")
 
-# --- 1. KONFIGURASI API KEY (VERSI AMAN) ---
-# Kita ambil kunci dari 'Secrets' yang sudah kita simpan di dashboard tadi
+# --- 1. KONFIGURASI API KEY (AMANKAN!) ---
 if "GEMINI_API_KEY" in st.secrets:
     API_KEY = st.secrets["GEMINI_API_KEY"]
 else:
-    # Ini buat jaga-jaga kalau kamu running di laptop sendiri (Local)
-    API_KEY = "AIzaSyD2PWDQOveErgHKYhgWuhdwaD94Zypt820" 
-
+    API_KEY = "" # Kosongkan saja untuk keamanan di GitHub
 if API_KEY:
     try:
         genai.configure(api_key=API_KEY)
