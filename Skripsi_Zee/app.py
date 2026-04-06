@@ -7,18 +7,22 @@ from PIL import Image
 # --- 1. KONFIGURASI HALAMAN (Wajib Paling Atas) ---
 st.set_page_config(page_title="Zee AI Studio", layout="wide", page_icon="✨")
 
-# --- 2. KONFIGURASI API KEY ---
-API_KEY = "AIzaSyCnm3BH6D8tzet8SgnlxvI1EaxDGXWBY-8"
+# --- 1. KONFIGURASI API KEY (VERSI AMAN) ---
+# Kita ambil kunci dari 'Secrets' yang sudah kita simpan di dashboard tadi
+if "GEMINI_API_KEY" in st.secrets:
+    API_KEY = st.secrets["GEMINI_API_KEY"]
+else:
+    # Ini buat jaga-jaga kalau kamu running di laptop sendiri (Local)
+    API_KEY = "AIzaSyD2PWDQOveErgHKYhgWuhdwaD94Zypt820" 
 
 if API_KEY:
     try:
         genai.configure(api_key=API_KEY)
         model = genai.GenerativeModel('gemini-flash-latest')
+        # Sidebar sukses dipindah ke dalam pengecekan
+        st.sidebar.success("Koneksi Aman & Stabil ✅")
     except Exception as e:
         st.error(f"Gagal inisialisasi AI: {e}")
-else:
-    st.error("API Key kosong!")
-
 # --- 3. DESAIN UI AESTHETIC (CUSTOM CSS) ---
 st.markdown("""
     <style>
